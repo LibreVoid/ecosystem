@@ -1,447 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LibreVoid — Unbreakable Freedom</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="manifest" href="data:application/manifest+json,{
-    \"name\":\"LibreVoid\",
-    \"short_name\":\"LV\",
-    \"start_url\":\".\",
-    \"display\":\"standalone\",
-    \"background_color\":\"#0a0e17\",
-    \"theme_color\":\"#00ff9d\",
-    \"icons\":[{\"src\":\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%2300ff9d'/%3E%3C/svg%3E\",\"sizes\":\"192x192\",\"type\":\"image/svg+xml\"}]
-  }">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#00ff9d">
+  <title>LibreVoid — Available Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0a0e17;--card:#111827;--accent:#00ff9d;--text:#e2e8f0;--text-light:#94a3b8;--border:#1e293b;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--purple:#a855f7;--gold:#fbbf24}
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;transition:all .3s}
-    .dark-mode{--bg:#0a0e17;--card:#111827;--text:#e2e8f0;--text-light:#94a3b8;--border:#1e293b}
-    .light-mode{--bg:#f8fafc;--card:#ffffff;--text:#1e293b;--text-light:#64748b;--border:#e2e8f0;--accent:#00cc7a}
-    .container{max-width:1300px;margin:0 auto;padding:1.5rem 1rem}
-    header{text-align:center;padding:2.5rem 0 1.5rem;position:relative}
-    .logo{font-size:3.2rem;font-weight:800;color:var(--accent);text-shadow:0 0 25px rgba(0,255,157,.5);letter-spacing:-1.5px}
-    .tagline{font-size:1.1rem;color:var(--text-light);font-weight:500;margin-top:.4rem}
-    .badge{display:inline-block;background:linear-gradient(135deg,rgba(0,255,157,.2),rgba(0,204,122,.2));color:var(--accent);padding:.4rem 1rem;border-radius:2rem;font-size:.8rem;font-weight:700;margin-top:.8rem;border:1px solid rgba(0,255,157,.4);box-shadow:0 0 15px rgba(0,255,157,.3)}
-    .app-container{background:var(--card);border-radius:1rem;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.3);border:1px solid var(--border);display:grid;grid-template-columns:1fr 380px;gap:0;max-width:1300px;margin:1.5rem auto}
-    @media(max-width:992px){.app-container{grid-template-columns:1fr}}
-    .main-panel{padding:2rem;background:#0f172a;border-right:1px solid var(--border);position:relative}
-    @media(max-width:992px){.main-panel{border-right:none;border-bottom:1px solid var(--border)}}
-    .sidebar{background:var(--card);padding:1.8rem;display:flex;flex-direction:column;gap:1.5rem}
-    .card{background:#1e293b;padding:1.5rem;border-radius:.8rem;border:1px solid var(--border);transition:all .3s;box-shadow:0 6px 16px rgba(0,0,0,.2)}
-    .card h3{color:var(--accent);margin-bottom:.8rem;font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
-    .stat{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed var(--border);font-size:.9rem}
-    .stat:last-child{border:none}.stat-label{color:var(--text-light)}.stat-value{color:var(--text);font-weight:600}
-    .btn{background:var(--accent);color:#0f172a;border:none;padding:.8rem 1.6rem;border-radius:.5rem;font-weight:700;cursor:pointer;transition:all .3s;font-size:.95rem;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 12px rgba(0,255,157,.4)}
-    .btn:hover{background:#00cc7a;transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,255,157,.6)}.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-    .btn-outline:hover{background:rgba(0,255,157,.15)}.btn-sm{padding:.5rem 1rem;font-size:.85rem}.btn-danger{background:var(--danger);color:#fff}
-    .btn-success{background:var(--success);color:#fff}.btn-purple{background:var(--purple);color:#fff}
-    .input-group{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}label{font-size:.9rem;color:var(--text-light);font-weight:600}
-    input[type=text],input[type=number],input[type=file],input[type=password]{background:#1e293b;border:1px solid var(--border);color:var(--text);padding:.8rem;border-radius:.5rem;font-size:.95rem;transition:all .2s}
-    input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,255,157,.2)}
-    .wallet-info{background:#1e293b;padding:1.4rem;border-radius:.8rem;border:1px solid var(--border);margin-bottom:1.4rem;position:relative;overflow:hidden}
-    .wallet-info::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--purple),var(--gold))}
-    .address{font-family:'Courier New',monospace;font-size:.95rem;word-break:break-all;color:var(--accent);margin:.5rem 0;font-weight:600}
-    .username{color:var(--gold);font-weight:700;font-size:1.05rem}
-    .copy-btn{background:rgba(255,102,179,.25);color:#ff66b3;border:1px solid rgba(255,102,179,.4);padding:.4rem .9rem;border-radius:.4rem;font-size:.8rem;margin-left:.5rem;transition:all .2s}
-    .copy-btn:hover{background:rgba(255,102,179,.4)}.loader{width:44px;height:44px;border:4px solid #1e293b;border-top:4px solid var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:2rem auto}
-    @keyframes spin{to{transform:rotate(360deg)}}.trust-bar{height:9px;background:#1e293b;border-radius:4px;overflow:hidden;margin:.5rem 0}
-    .trust-fill{height:100%;background:linear-gradient(90deg,var(--accent),#00cc7a);border-radius:4px;transition:width .6s ease}.footer{text-align:center;padding:3rem 1rem 1.5rem;color:var(--text-light);font-size:.9rem}
-    .footer a{color:var(--accent);text-decoration:none;font-weight:600}.genesis-badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1e293b;padding:.6rem 1.2rem;border-radius:2rem;font-weight:800;font-size:.85rem;display:inline-block;margin-top:.8rem;box-shadow:0 0 18px rgba(251,191,36,.5)}
-    .vesting-clock{background:#1e293b;padding:1rem;border-radius:.8rem;text-align:center;margin-top:1rem;border:2px solid var(--gold);font-weight:700;color:var(--gold)}
-    .qr-code{display:flex;justify-content:center;margin:1.2rem 0;padding:1rem;background:#0f172a;border-radius:.8rem;border:1px dashed var(--border)}
-    .theme-toggle{position:absolute;top:1.2rem;right:1.2rem;background:var(--card);border:1px solid var(--border);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:10}
-    .theme-toggle:hover{transform:scale(1.1);box-shadow:0 0 18px rgba(0,255,157,.5)}
-    .live-feed{max-height:280px;overflow-y:auto;padding:.5rem;background:#0f172a;border-radius:.5rem;font-size:.8rem;border:1px solid var(--border)}
-    .feed-item{padding:.5rem 0;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;font-family:monospace}
-    .feed-item:last-child{border:none}.wallet-switcher{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.5rem;margin:1rem 0}
-    .wallet-btn{background:#1e293b;padding:.8rem;border-radius:.5rem;text-align:center;cursor:pointer;border:1px solid var(--border);font-size:.85rem;font-weight:600;transition:all .2s}
-    .wallet-btn.active{border:2px solid var(--accent);background:linear-gradient(135deg,rgba(0,255,157,.15),rgba(0,204,122,.15));color:var(--accent)}
-    .roadmap{margin-top:1.5rem;padding:1.8rem;background:#1e293b;border-radius:.8rem;border:1px solid var(--border)}
-    .roadmap h3{color:var(--gold);margin-bottom:1.2rem;text-align:center;font-size:1.2rem}
-    .phase{margin-bottom:1.5rem;padding:1rem;background:#111827;border-left:3px solid var(--accent);border-radius:0 .7rem .7rem 0}
-    .phase h4{color:var(--accent);font-size:1rem;margin-bottom:.4rem}
-    .phase ul{list-style:none;padding-left:.8rem}
-    .phase li{color:var(--text-light);margin:.3rem 0;position:relative;font-size:.85rem}
-    .phase li::before{content:'▹';color:var(--accent);position:absolute;left:-.8rem}
-    .quantum-shield{background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(251,191,36,.2));padding:1.2rem;border-radius:.8rem;margin:1.2rem 0;border:1px solid var(--purple);text-align:center}
-    .quantum-shield h3{color:var(--purple);font-size:1.1rem;margin-bottom:.6rem}
-    .quantum-shield p{font-size:.85rem;color:var(--text-light)}
-    .promotion-pool{background:var(--success);color:#fff;padding:.8rem;border-radius:.7rem;text-align:center;font-weight:700;margin:.8rem 0}
-    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:9999;align-items:center;justify-content:center;padding:1rem}
-    .modal-content{background:var(--card);border-radius:1rem;padding:2rem;max-width:800px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.5)}
-    .modal-content h2{color:var(--accent);margin-bottom:1rem;text-align:center}
-    .modal-content p, .modal-content li{line-height:1.7;font-size:.95rem}
-    .close-modal{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-light);font-size:1.5rem;cursor:pointer}
+    :root {
+      --bg: #0a0e17;
+      --accent: #00ff9d;
+      --glow: 0 0 60px rgba(0, 255, 157, 0.9);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Centered Text Only */
+    .soon {
+      font-size: 7rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #00ff9d, #a855f7, #00d68f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: var(--glow);
+      animation: pulse 2.2s infinite;
+      z-index: 10;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .librevoid {
+      font-size: 4.5rem;
+      color: var(--accent);
+      text-shadow: var(--glow);
+      animation: float 4.5s ease-in-out infinite;
+      z-index: 10;
+      text-align: center;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: var(--glow); }
+      50% { text-shadow: 0 0 80px rgba(0,255,157,1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+
+    @media (max-width: 768px) {
+      .soon { font-size: 4.8rem; }
+      .librevoid { font-size: 3.2rem; }
+    }
+    @media (max-width: 480px) {
+      .soon { font-size: 3.4rem; }
+      .librevoid { font-size: 2.4rem; }
+    }
   </style>
 </head>
-<body class="dark-mode">
-  <div class="container">
-    <header>
-      <div class="logo">LibreVoid</div>
-      <p class="tagline">Quantum-Resistant • AI-Proof • Unbreakable</p>
-      <div class="badge">OFFLINE • AES-256 • P2P QR • NO SERVERS</div>
-      <div class="theme-toggle" onclick="toggleTheme()">
-        <i class="fas fa-moon"></i>
-      </div>
-    </header>
+<body>
 
-    <div class="app-container">
-      <div class="main-panel">
-        <div id="result">
-          <div style="text-align:center;padding:2.5rem 0">
-            <h2 style="color:var(--accent);margin-bottom:.8rem;font-size:2rem">Welcome to True Freedom</h2>
-            <p style="color:var(--text-light);max-width:600px;margin:0 auto 2rem;font-size:1rem">No blockchain. No internet. No masters. You own your money.</p>
-            <button class="btn" onclick="_g()">
-              <i class="fas fa-wallet"></i> Create Wallet
-            </button>
-            <button class="btn btn-outline" onclick="_r()" style="margin-left:.6rem">
-              <i class="fas fa-upload"></i> Restore
-            </button>
-            <button class="btn btn-purple btn-sm" onclick="openWhitepaper()" style="margin-left:.6rem">
-              <i class="fas fa-file-alt"></i> Whitepaper
-            </button>
-          </div>
-        </div>
+  <!-- ONLY TEXT — CENTERED IN THE VOID -->
+  <div class="soon">AVAILABLE SOON</div>
+  <div class="librevoid">LIBREVOID</div>
 
-        <div class="quantum-shield">
-          <h3><i class="fas fa-shield-alt"></i> QUANTUM & AI RESISTANT</h3>
-          <p>256-bit entropy • Offline generation • No seed exposure • P2P QR transfer</p>
-        </div>
-
-        <div class="roadmap">
-          <h3>Roadmap to Freedom</h3>
-          <div class="phase">
-            <h4>Q4 2025 — Genesis Launch</h4>
-            <ul>
-              <li>PWA Wallet (Offline)</li>
-              <li>QR Code Trading</li>
-              <li>AES-256 Backup</li>
-              <li>1,000,000 Wallets</li>
-            </ul>
-          </div>
-          <div class="phase">
-            <h4>Q1 2026 — Mesh Network</h4>
-            <ul>
-              <li>Bluetooth Sync</li>
-              <li>Offline Markets</li>
-              <li>Trust Score v2</li>
-              <li>10M Supply Burn</li>
-            </ul>
-          </div>
-          <div class="phase">
-            <h4>Q3 2026 — Global Adoption</h4>
-            <ul>
-              <li>100+ Languages</li>
-              <li>Hardware Wallet</li>
-              <li>DAO Governance</li>
-              <li>1B LVU Circulating</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar">
-        <div class="card"><h3><i class="fas fa-bolt"></i> Live Activity</h3><div id="feed" class="live-feed">System online</div></div>
-        <div class="card"><h3><i class="fas fa-chart-line"></i> Network Stats</h3><div id="s"></div></div>
-        <div class="card"><h3><i class="fas fa-trophy"></i> Top Holders</h3><div id="l" style="color:var(--text-light);font-size:.85rem">Loading...</div></div>
-        <div class="card"><h3><i class="fas fa-users"></i> Promotion Pool</h3>
-          <div class="promotion-pool">500M LVU — For Builders & Community</div>
-          <button class="btn btn-purple btn-sm" style="margin-top:.4rem;width:100%" onclick="alert('Airdrop opens Q1 2026')">
-            Claim Airdrop
-          </button>
-        </div>
-        <div class="card"><h3><i class="fas fa-shield-alt"></i> Active Wallet</h3><div id="t" style="text-align:center;color:var(--text-light)">None</div></div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p><button class="btn btn-sm btn-outline" onclick="openWhitepaper()">Whitepaper</button> • 
-         <a href="#">Roadmap</a> • <a href="#">GitHub</a> • <a href="#">Discord</a></p>
-      <p style="margin-top:.6rem;font-size:.8rem">LibreVoid Foundation • Promotion Pool: 500M LVU • Quantum Resistant</p>
-    </div>
-  </div>
-
-  <!-- WHITEPAPER MODAL (EMBEDDED) -->
-  <div id="whitepaperModal" class="modal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeWhitepaper()">&times;</button>
-      <h2>LibreVoid Whitepaper v1.0</h2>
-      <p><strong>Authors:</strong> You + Grok (xAI)</p>
-      <p><strong>Date:</strong> October 31, 2025</p>
-      <hr style="border-color:var(--border);margin:1.5rem 0">
-      <h3>1. Abstract</h3>
-      <p>LibreVoid is a fully offline, quantum-resistant, AI-proof digital currency system. No blockchain. No internet. No central authority. Users generate wallets locally, trade via QR codes, and backup with AES-256 encryption. Designed to survive the collapse of digital infrastructure.</p>
-      
-      <h3>2. Core Principles</h3>
-      <ul>
-        <li><strong>Offline First:</strong> All operations work without internet.</li>
-        <li><strong>Quantum Resistant:</strong> 256-bit entropy + offline key generation.</li>
-        <li><strong>AI Proof:</strong> No public ledger, no patterns to scrape.</li>
-        <li><strong>P2P Trading:</strong> QR code scanning for instant transfer.</li>
-      </ul>
-      
-      <h3>3. Technical Architecture</h3>
-      <p><strong>Wallet:</strong> 12-word seed (2048-word list) → 256-bit private key → Username + Address</p>
-      <p><strong>Storage:</strong> localStorage (AES-encrypted backup)</p>
-      <p><strong>Transfer:</strong> QR code contains address + amount + signature</p>
-      <p><strong>Trust Score:</strong> Based on age, activity, and QR scans</p>
-      
-      <h3>4. Tokenomics</h3>
-      <ul>
-        <li>Total Supply: 1,000,000,000,000 LVU</li>
-        <li>Promotion Pool: 500,000,000,000 LVU (50%)</li>
-        <li>Circulating: User-generated</li>
-        <li>Burn Mechanism: 1% per year</li>
-      </ul>
-      
-      <h3>5. Security Model</h3>
-      <p>Seeds never leave device. Backups are AES-256 encrypted. No central server. No KYC. No surveillance.</p>
-      
-      <h3>6. Roadmap</h3>
-      <p>See in-app roadmap for Q4 2025 → Q3 2026 milestones.</p>
-      
-      <h3>7. Conclusion</h3>
-      <p>LibreVoid is not just a currency — it's financial sovereignty in your pocket. When the grid fails, LibreVoid works.</p>
-      
-      <p style="text-align:center;margin-top:2rem">
-        <em><strong>Built by humans. For humans. Against machines.</strong></em>
-      </p>
-    </div>
-  </div>
-
-  <!-- CORE SCRIPT v3.1 -->
-  <script>
-    const FULL_WORDLIST = ["apple","river","cloud","stone","forest","ocean","mountain","sky","flame","wind","shadow","dawn","night","star","moon","sun","wave","rock","ice","dust","echo","void","light","dark","fire","water","earth","air","spirit","soul","mind","heart","power","truth","lie","dream","hope","fear","love","hate","life","death","time","space","energy","matter","code","data","signal","noise","chaos","order","balance","force","will","path","gate","key","lock","chain","free","rise","fall","peak","valley","storm","calm","heat","cold","fast","slow","high","low","deep","wide","near","far","here","there","now","then","always","never","yes","no","true","false","open","close","start","end","first","last","win","lose","play","work","rest","run","walk","fly","swim","build","break","create","destroy","give","take","send","receive","hold","drop","keep","lose","find","search","ask","answer","speak","listen","see","look","touch","feel","know","learn","teach","grow","shrink","expand","contract","enter","exit","join","leave","begin","finish","live","die","born","made","real","fake","strong","weak","bold","shy","brave","scared","calm","angry","happy","sad","rich","poor","full","empty","heavy","light","hard","soft","loud","quiet","bright","dim","clear","fog","sharp","dull","smooth","rough","wet","dry","hot","cold","sweet","sour","bitter","salty","fresh","old","new","young","ancient","future","past","present","eternal","moment","forever","instant","long","short","tall","wide","big","small","huge","tiny","vast","narrow","round","square","flat","curved","straight","bent","clean","dirty","pure","mixed","simple","complex","easy","hard","safe","risk","win","lose","gain","loss","profit","cost","value","price","free","paid","gift","debt","own","rent","share","take","all","none","some","many","few","one","two","three","four","five","six","seven","eight","nine","ten","hundred","thousand","million","billion","zero","infinity","alpha","beta","gamma","delta","omega","sigma","pi","phi","lambda","theta","crypto","quantum","neuron","synapse","matrix","grid","node","link","edge","vertex","pixel","vector","scalar","tensor","field","wave","particle","orbit","spin","charge","mass","energy","force","motion","rest","speed","velocity","acceleration","momentum","gravity","magnet","electric","optic","sound","heat","light","dark","color","hue","tone","shade","tint","blend","mix","pure","solid","liquid","gas","plasma","void","core","shell","layer","ring","belt","zone","area","region","land","sea","sky","space","star","planet","moon","comet","asteroid","galaxy","universe","cosmos","reality","dream","myth","legend","hero","villain","quest","journey","path","road","bridge","gate","door","window","wall","floor","roof","room","hall","tower","castle","city","village","forest","desert","ocean","river","lake","mountain","valley","plain","island","cave","tunnel","mine","forge","lab","ship","car","plane","train","rocket","portal","warp","teleport","clone","copy","original","unique","rare","common","legendary","epic","mythic","divine","cursed","blessed","sacred","forbidden","allowed","banned","legal","illegal","right","wrong","good","evil","neutral","chaos","law","order","freedom","control","power","weakness","strength","courage","fear","hope","despair","love","hate","peace","war","life","death","birth","end","cycle","loop","spiral","line","curve","wave","pulse","beat","rhythm","melody","harmony","silence","noise","signal","code","message","secret","open","hidden","visible","invisible","known","unknown","found","lost","saved","deleted","created","destroyed","built","broken","fixed","ruined","whole","part","piece","fragment","shard","crystal","gem","gold","silver","bronze","iron","steel","wood","stone","glass","sand","dust","ash","fire","water","air","earth","spirit","soul","mind","body","heart","brain","eye","ear","mouth","hand","foot","wing","fin","claw","horn","tail","scale","feather","fur","skin","bone","blood","flesh","nerve","cell","gene","dna","atom","quark","electron","proton","neutron","photon","graviton","boson","fermion","lepton","hadron","meson","baryon","string","brane","dimension","universe","multiverse","void","infinity","zero","one","prime","odd","even","square","cube","root","power","log","sin","cos","tan","pi","e","i","j","k","x","y","z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-    const TOTAL_SUPPLY = 1000000000000;
-    const PROMOTION_POOL = 500000000000;
-    let ecosystemData = JSON.parse(localStorage.getItem('librevoid_ecosystem_v3')) || {
-      wallets: {}, transactions: 0, rewardPool: 1000000, activeAddress: null, genesis: false, liveFeed: [], promotionClaimed: {}
-    };
-
-    function save() {
-      localStorage.setItem('librevoid_ecosystem_v3', JSON.stringify(ecosystemData));
-    }
-
-    function generateUsername() {
-      const adjectives = ["Quantum","Neon","Void","Crypto","Alpha","Omega","Sigma","Nexus","Apex","Zenith","Nova","Pulse","Echo","Flux","Rift","Core","Node","Link","Grid","Mesh"];
-      const nouns = ["Hawk","Lynx","Wolf","Fox","Bear","Eagle","Tiger","Lion","Drake","Phoenix","Titan","Forge","Vault","Shield","Blade","Crown","Throne","Realm","Domain","Empire"];
-      return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)] + Math.floor(Math.random() * 9999);
-    }
-
-    function generatePhrase() {
-      return Array(12).fill().map(() => FULL_WORDLIST[Math.floor(Math.random() * FULL_WORDLIST.length)]).join(' ');
-    }
-
-    function computeTrustScore(addr) {
-      const w = ecosystemData.wallets[addr];
-      if (!w) return 0;
-      const tx = w.history.length;
-      const days = (Date.now() - w.created) / 86400000;
-      const base = Math.floor(tx * 8 + days * 0.4);
-      return Math.min(100, base + (w.qrScans || 0) * 2);
-    }
-
-    function logActivity(msg) {
-      if (msg.includes('phrase') || msg.includes('secret')) return;
-      ecosystemData.liveFeed.unshift({msg, time: new Date().toLocaleTimeString()});
-      if (ecosystemData.liveFeed.length > 30) ecosystemData.liveFeed.pop();
-      document.getElementById('feed').innerHTML = ecosystemData.liveFeed.map(f => 
-        `<div class="feed-item"><span>${f.msg}</span><span style="color:var(--text-light);font-size:.7rem">${f.time}</span></div>`
-      ).join('') || 'System online';
-      save();
-    }
-
-    function updateStats() {
-      const wc = Object.keys(ecosystemData.wallets).length;
-      document.getElementById('s').innerHTML = `
-        <div class="stat"><span class="stat-label">Wallets</span><span class="stat-value">${wc.toLocaleString()}</span></div>
-        <div class="stat"><span class="stat-label">Transactions</span><span class="stat-value">${ecosystemData.transactions.toLocaleString()}</span></div>
-        <div class="stat"><span class="stat-label">Promotion Pool</span><span class="stat-value">${PROMOTION_POOL.toLocaleString()} LVU</span></div>
-      `;
-      updateLeaderboard();
-      if (ecosystemData.activeAddress) updateTrustBar();
-    }
-
-    function updateLeaderboard() {
-      const scores = Object.entries(ecosystemData.wallets)
-        .map(([a,d]) => ({addr: a, score: computeTrustScore(a), bal: d.amount}))
-        .sort((a,b) => b.bal - a.bal).slice(0,5);
-      document.getElementById('l').innerHTML = scores.length ? scores.map((s,i) => 
-        `${i+1}. <span class="username">${s.addr.split('-')[0]}</span> — ${s.bal.toLocaleString()} LVU`
-      ).join('<br>') : 'Be the first!';
-    }
-
-    function updateTrustBar() {
-      const score = computeTrustScore(ecosystemData.activeAddress);
-      document.getElementById('t').innerHTML = `
-        <div style="margin-bottom:.4rem;font-weight:600">${score}% Trust Level</div>
-        <div class="trust-bar"><div class="trust-fill" style="width:${score}%"></div></div>
-      `;
-    }
-
-    function _g() {
-      const div = document.getElementById('result');
-      div.innerHTML = '<div class="loader"></div>';
-      setTimeout(() => {
-        const username = generateUsername();
-        const addr = username + '-' + Array(4).fill().map(() => FULL_WORDLIST[Math.floor(Math.random() * FULL_WORDLIST.length)].slice(0,4)).join('');
-        const phrase = generatePhrase();
-        const amt = Math.floor(Math.random() * 5000) + 500;
-        ecosystemData.wallets[addr] = {username, phrase, amount: amt, history: [`Genesis: +${amt} LVU`], created: Date.now(), qrScans: 0};
-        ecosystemData.activeAddress = addr;
-        logActivity(`New user: @${username}`);
-        save(); updateStats(); _sw(addr);
-      }, 1400);
-    }
-
-    function _sw(addr) {
-      const w = ecosystemData.wallets[addr];
-      const score = computeTrustScore(addr);
-      document.getElementById('result').innerHTML = `
-        <div class="wallet-info">
-          <div><strong>Username:</strong> <span class="username">@${w.username}</span></div>
-          <div><strong>Address:</strong> <span class="address">${addr}</span> <button class="copy-btn btn-sm" onclick="_c('${addr}')">Copy</button></div>
-          <div><strong>Seed Phrase:</strong> <span class="address" style="font-size:.8rem;display:block;margin-top:.4rem">${w.phrase}</span> 
-            <button class="copy-btn btn-sm" onclick="_c('${w.phrase}')">Copy Phrase</button>
-          </div>
-          <div><strong>Balance:</strong> <strong style="color:var(--accent);font-size:1.2rem">${w.amount.toLocaleString()} LVU</strong></div>
-        </div>
-        <div class="qr-code" id="qrcode"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.8rem;">
-          <button class="btn btn-outline" onclick="_ss('${addr}')">Send</button>
-          <button class="btn btn-outline" onclick="_qr('${addr}')">Regen QR</button>
-          <button class="btn btn-outline" onclick="_bw()">Backup</button>
-          <button class="btn btn-purple btn-sm" onclick="_ex()">Export</button>
-        </div>
-        <div class="wallet-switcher">
-          ${Object.keys(ecosystemData.wallets).map(a => 
-            `<div class="wallet-btn ${a===addr?'active':''}" onclick="_sw('${a}')">${ecosystemData.wallets[a].username}</div>`
-          ).join('')}
-        </div>`;
-      document.getElementById('t').innerHTML = `<strong>@${w.username}</strong><div class="trust-bar" style="margin-top:.4rem"><div class="trust-fill" style="width:${score}%"></div></div>`;
-      _qr(addr);
-      logActivity(`Switched to @${w.username}`);
-    }
-
-    function _c(t) {
-      navigator.clipboard.writeText(t);
-      const b = event.target; b.textContent = 'Copied!';
-      setTimeout(() => b.textContent = 'Copy', 1500);
-    }
-
-    function _bw() {
-      const data = new Blob([JSON.stringify(ecosystemData)], {type: 'application/json'});
-      const url = URL.createObjectURL(data);
-      const a = document.createElement('a'); a.href = url; a.download = 'librevoid-backup.json'; a.click();
-      logActivity('Backup downloaded');
-    }
-
-    function _qr(addr) {
-      const qrDiv = document.getElementById('qrcode');
-      if (!qrDiv) return;
-      qrDiv.innerHTML = '';
-      new QRCode(qrDiv, {
-        text: addr,
-        width: 200, height: 200,
-        colorDark: '#00ff9d',
-        colorLight: '#0f172a'
-      });
-      ecosystemData.wallets[addr].qrScans = (ecosystemData.wallets[addr].qrScans || 0) + 1;
-      save();
-    }
-
-    function _ss(addr) {
-      document.getElementById('result').innerHTML = `
-        <div class="input-group"><label>Send to Username or Address</label>
-          <input type="text" id="to" placeholder="@QuantumHawk or full address">
-        </div>
-        <div class="input-group"><label>Amount (LVU)</label>
-          <input type="number" id="amt" min="1" placeholder="100">
-        </div>
-        <button class="btn btn-success" onclick="_sl('${addr}')" style="width:100%;margin-top:.8rem">Send Securely</button>
-      `;
-    }
-
-    function _sl(from) {
-      const toInput = document.getElementById('to').value.trim();
-      const amt = parseInt(document.getElementById('amt').value);
-      if (!toInput || !amt) return alert('Fill all fields');
-      let to = toInput;
-      if (toInput.startsWith('@')) {
-        const username = toInput.slice(1);
-        to = Object.keys(ecosystemData.wallets).find(a => ecosystemData.wallets[a].username === username);
-      }
-      if (!to || !ecosystemData.wallets[to]) return alert('Recipient not found');
-      const fw = ecosystemData.wallets[from];
-      if (fw.amount < amt) return alert('Insufficient funds');
-      fw.amount -= amt; ecosystemData.wallets[to].amount += amt;
-      const ts = new Date().toLocaleTimeString();
-      fw.history.push(`Sent ${amt} → ${toInput}`);
-      ecosystemData.wallets[to].history.push(`Received ${amt} ← @${fw.username}`);
-      ecosystemData.transactions++;
-      logActivity(`Transfer: ${amt} LVU → ${toInput}`);
-      save(); updateStats(); _sw(from);
-    }
-
-    function _r() {
-      document.getElementById('result').innerHTML = `
-        <div class="input-group"><label>Upload Backup</label><input type="file" id="rf" accept=".json"></div>
-        <button class="btn" onclick="_pr()" style="width:100%">Restore Wallet</button>
-      `;
-    }
-
-    function _pr() {
-      const file = document.getElementById('rf').files[0];
-      if (!file) return alert('Select file');
-      const reader = new FileReader();
-      reader.onload = e => {
-        try {
-          const data = JSON.parse(e.target.result);
-          if (confirm('This will overwrite current data. Continue?')) {
-            ecosystemData = data;
-            save(); updateStats();
-            logActivity('Backup restored');
-            _sw(ecosystemData.activeAddress || Object.keys(ecosystemData.wallets)[0]);
-          }
-        } catch { alert('Invalid backup'); }
-      };
-      reader.readAsText(file);
-    }
-
-    function _ex() {
-      const csv = "Username,Address,Balance,Trust\n" + 
-        Object.entries(ecosystemData.wallets).map(([a,d]) => 
-          `${d.username},${a},${d.amount},${computeTrustScore(a)}`
-        ).join('\n');
-      const blob = new Blob([csv], {type: 'text/csv'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'librevoid-export.csv'; a.click();
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      document.body.classList.toggle('dark-mode');
-      const icon = document.querySelector('.theme-toggle i');
-      icon.classList.toggle('fa-moon'); icon.classList.toggle('fa-sun');
-    }
-
-    function openWhitepaper() {
-      document.getElementById('whitepaperModal').style.display = 'flex';
-    }
-
-    function closeWhitepaper() {
-      document.getElementById('whitepaperModal').style.display = 'none';
-    }
-
-    window.onload = () => {
-      save(); updateStats();
-      if (ecosystemData.activeAddress) _sw(ecosystemData.activeAddress);
-      setInterval(() => logActivity('Network pulse'), 30000);
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </body>
 </html>
